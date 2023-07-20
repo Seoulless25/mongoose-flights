@@ -1,4 +1,5 @@
 const Flight = require('../model/flights');
+const Ticket = require('../model/ticket');
 
 module.exports = {
     index,
@@ -9,10 +10,8 @@ module.exports = {
 
 function newFlight(req, res) {
     const newFlight = new Flight();
-    const departure = newFlight.departs;
-    let departsDate = `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}`;
-    departsDate += `-${dt.getDate().toString().padStart(2, '0')}T${dt.toTimeString().slice(0, 5)}`;
-    res.render("flights/new", { title: "Add Flight", errorMsg: "", departsDate });
+    const departureDate = newFlight.departs;
+    res.render('flights/new', {errorMsg: ''} )
 }
 
 async function index(req,res) {
@@ -34,9 +33,10 @@ async function create(req, res) {
   }
 
 async function show(req,  res) {
-    const flightDisplay = await Flight.findById(req.params.id);
-    const airportCode = await Airport.findOne();
-    const allAirportCodes = airportCode.airportCodes;
-    res.render("flights/display", {flight: flightDisplay, allAirportCodes})
+    const flight = await Flight.findById(req.params.id)
+    res.render('flights/show', {
+        flight,
+        ticket: await Ticket.find({flight: flight._id})
+    });
 }
 

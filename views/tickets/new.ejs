@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mongoose Flights</title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
-<body>
-  <nav>
-    <a href="/">Home</a>
-    &nbsp;|&nbsp;
-    <a href="/flights/new">New Flights</a>
-    &nbsp;|&nbsp;
-    <a href="/tickets/new">Add Ticket</a>
-   |<a href = "/flights"> All Flights</a>
-  </nav>
+<%- include('../partials/header') %>
 
-  
+<h1>Enter Ticket Details</h1>
+<section id="badge-container">
+  <% tickets.forEach(function(p) { %>
+    <article class="badge"><%= p.name %></article>
+  <% }) %>
+</section>
+
+<form id="add-ticket-form" action="/flights/<%= flight %>/tickets" method="POST">
+  <label>Seat No:</label><br>
+  <input type="text" name="seat"></br>
+  <label>Price:</label><br>
+  <input type="number" name="price"></br>
+  <input type="submit" value="Add Ticket"><br>
+</form>
+
+<%- include('../partials/footer') %>

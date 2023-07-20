@@ -1,22 +1,15 @@
 <%- include('../partials/header') %>
 
-<section id="show-page">
-  <div>Airline</div>
+<section id="show-page"><br>
+  <div>Airline:</div>
   <div><%= flight.airline %></div>
-  <div>Airport</div>
+  <div>Airport:</div>
   <div><%= flight.airport %></div>
-  <div>Flight Number</div>
+  <div>Flight Number:</div>
   <div><%= flight.flightNo %></div>
-  <div>Departure Date</div>
-  <div><%= flight.depart %></div>
+  <div>Departure Date:</div>
+  <div><%= flight.departs %></div>
 </section>
-
-<div>Seat</div>
-<% if (flight.seat) { %>
-  <ul>
-    <% flight.seat.map(p => `<li>${p.name} <small>${p.flight.toLocaleDateString()}</small></li>`).join('') %>
-    </ul>
-  <% } %>
 
 <br /><br />
 <h2>Destinations</h2>
@@ -59,6 +52,29 @@
   </tbody>
 </table>
 <% } else { %>
-<h5>No Destinations Yet</h5>
+<h5>No destinations Yet</h5>
+
+<%if(ticket.length){%>
+  <h2>Tickets</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Seat No:</th>
+      <th>Price:</th>
+    </tr>
+  </thead>
+  <tbody>
+   <% ticket.forEach((t) => { console.log(t)%>
+   <tr>
+    <td><%= t.seat %></td>
+    <td><%= t.price %></td>
+   </tr>
+  <%});%>
+    </tbody>
+</table><br><br>
+<%}%>
+
+<a class="ticket-submit-btn" href="/flights/<%= flight._id %>/tickets/new">New Ticket</a>  
+
 
 <% } %> <%- include('../partials/footer') %>

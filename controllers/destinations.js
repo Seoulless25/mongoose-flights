@@ -1,18 +1,17 @@
-const Flight = require('../models/flights');
+const Flight = require('../model/flights');
 
 module.exports = { 
     create
 };
 
 async function create(req, res) {
-    const flightsUpdated = await Flight.findById(req.params.id);
-    flightsUpdated.destinations.push(req.body);
-
+    const flightUpdate = await Flight.findById(req.params.id);
+    flightUpdate.destinations.push(req.body);
     try{
-        await flightsUpdated.save();
+        await flightUpdate.save();
     }
     catch(err){
         console.log(err)
     }
-    res.redirect(`/flights/${flightToUpdate._id}`);
+    res.redirect(`/flights/${flightUpdate._id}`);
 }
